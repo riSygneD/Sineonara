@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3 uid="uid://daudfjxicymcy"]
+
+[ext_resource type="Theme" uid="uid://18prg1h5nv17" path="res://main_menu_theme.tres" id="1_06t4h"]
+[ext_resource type="PackedScene" uid="uid://cpsh1ojnwgsks" path="res://main_menu_background.tscn" id="2_7vrkn"]
+[ext_resource type="Script" uid="uid://cnuluir36jtti" path="res://main_menu.gd" id="2_fu7sn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_06t4h"]
+font_size = 48
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_06t4h")
+script = ExtResource("2_fu7sn")
+
+[node name="StaticBackground" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0.05882353, 1)
+
+[node name="AnimatedBackgroundContainer" type="SubViewportContainer" parent="."]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="SubViewport" type="SubViewport" parent="AnimatedBackgroundContainer"]
+transparent_bg = true
+handle_input_locally = false
+gui_disable_input = true
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="MainMenuBackground" parent="AnimatedBackgroundContainer/SubViewport" instance=ExtResource("2_7vrkn")]
+position = Vector2(320, 180)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.25
+anchor_right = 0.5
+anchor_bottom = 0.25
+offset_left = -30.5
+offset_right = 30.5
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Sineonara"
+label_settings = SubResource("LabelSettings_06t4h")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.75
+anchor_right = 0.5
+anchor_bottom = 0.75
+offset_left = -20.0
+offset_top = -24.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "play"

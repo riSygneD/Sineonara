@@ -1,0 +1,117 @@
+[gd_scene load_steps=3 format=3 uid="uid://dw88n4b32l7vi"]
+
+[ext_resource type="Theme" uid="uid://18prg1h5nv17" path="res://main_menu_theme.tres" id="1_oaw30"]
+[ext_resource type="PackedScene" uid="uid://cku8kjtawyxjg" path="res://game_world.tscn" id="2_mj8uy"]
+
+[node name="GameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_oaw30")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TopBar" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HealthContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/TopBar"]
+layout_mode = 2
+
+[node name="HealthLabel" type="Label" parent="MarginContainer/VBoxContainer/TopBar/HealthContainer"]
+layout_mode = 2
+text = "Health: 10/10"
+
+[node name="NextWaveButton" type="Button" parent="MarginContainer/VBoxContainer/TopBar"]
+layout_mode = 2
+text = "Start Next Wave: Z"
+
+[node name="RedeemRewardButton" type="Button" parent="MarginContainer/VBoxContainer/TopBar"]
+layout_mode = 2
+text = "Redeem Reward (0): X"
+
+[node name="SkipTutorialButton" type="Button" parent="MarginContainer/VBoxContainer/TopBar"]
+layout_mode = 2
+text = "Skip Tutorial: C"
+
+[node name="TimeContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/TopBar"]
+layout_mode = 2
+
+[node name="TimeLabel" type="Label" parent="MarginContainer/VBoxContainer/TopBar/TimeContainer"]
+layout_mode = 2
+text = "Time Elapsed: 0:00.000"
+
+[node name="PlayArea" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/PlayArea"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="MarginContainer/VBoxContainer/PlayArea/PanelContainer"]
+layout_mode = 2
+
+[node name="SubViewport" type="SubViewport" parent="MarginContainer/VBoxContainer/PlayArea/PanelContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(532, 300)
+render_target_update_mode = 4
+
+[node name="Game" parent="MarginContainer/VBoxContainer/PlayArea/PanelContainer/SubViewportContainer/SubViewport" instance=ExtResource("2_mj8uy")]
+
+[node name="InfoBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PlayArea"]
+layout_mode = 2
+alignment = 2
+
+[node name="WaveInfoContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/PlayArea/InfoBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="WaveInfoLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayArea/InfoBoxContainer/WaveInfoContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Wave Info"
+horizontal_alignment = 1
+
+[node name="AmplitudeContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/PlayArea/InfoBoxContainer"]
+layout_mode = 2
+
+[node name="AmplitudeLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayArea/InfoBoxContainer/AmplitudeContainer"]
+layout_mode = 2
+text = "Amplitude
+Up/Down"
+horizontal_alignment = 1
+
+[node name="FrequencyContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/PlayArea/InfoBoxContainer"]
+layout_mode = 2
+
+[node name="FrequencyLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayArea/InfoBoxContainer/FrequencyContainer"]
+layout_mode = 2
+text = "Frequency
+Left/Right"
+horizontal_alignment = 1
+
+[node name="AttackContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/PlayArea/InfoBoxContainer"]
+layout_mode = 2
+
+[node name="AttackLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayArea/InfoBoxContainer/AttackContainer"]
+layout_mode = 2
+text = "Attack
+Space"
+horizontal_alignment = 1

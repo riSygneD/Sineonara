@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhb15xjj2i2wg"]
+
+[ext_resource type="Script" uid="uid://dub35u32gkum2" path="res://main.gd" id="1_ig7tw"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_ig7tw")
+
+[node name="FadeOverlay" type="ColorRect" parent="."]
+unique_name_in_owner = true
+z_index = 2048
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0.05882353, 0)

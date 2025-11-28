@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cku8kjtawyxjg"]
+
+[ext_resource type="PackedScene" uid="uid://4ad6ir3elqsv" path="res://player_path.tscn" id="2_e2o6t"]
+[ext_resource type="Theme" uid="uid://18prg1h5nv17" path="res://main_menu_theme.tres" id="3_ea1x0"]
+[ext_resource type="PackedScene" uid="uid://chslile3hjjx2" path="res://enemies/circle_enemy.tscn" id="4_e08lw"]
+
+[node name="GameWorld" type="Node2D"]
+
+[node name="PlayerPath" parent="." instance=ExtResource("2_e2o6t")]
+unique_name_in_owner = true
+position = Vector2(0, 150)
+
+[node name="Reference" type="PanelContainer" parent="."]
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 538.0
+offset_bottom = 306.0
+theme = ExtResource("3_ea1x0")
+
+[node name="ColorRect" type="ColorRect" parent="Reference"]
+custom_minimum_size = Vector2(532, 300)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="CircleEnemy" parent="." instance=ExtResource("4_e08lw")]
+position = Vector2(560, 155)
