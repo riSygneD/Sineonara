@@ -1,15 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cku8kjtawyxjg"]
+[gd_scene load_steps=5 format=3 uid="uid://cku8kjtawyxjg"]
 
 [ext_resource type="Script" uid="uid://bkhe2py62ue7u" path="res://game_world.gd" id="1_e08lw"]
 [ext_resource type="PackedScene" uid="uid://4ad6ir3elqsv" path="res://player_path.tscn" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://bqjqgqx4ml0c3" path="res://enemy_spawner.gd" id="3_e08lw"]
 [ext_resource type="Theme" uid="uid://18prg1h5nv17" path="res://main_menu_theme.tres" id="3_ea1x0"]
-
-[sub_resource type="Curve2D" id="Curve2D_e3xe6"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 268)
-}
-point_count = 2
 
 [node name="GameWorld" type="Node2D"]
 script = ExtResource("1_e08lw")
@@ -31,11 +25,11 @@ color = Color(1, 1, 1, 0)
 unique_name_in_owner = true
 position = Vector2(0, 150)
 
-[node name="EnemySpawner" type="Path2D" parent="."]
+[node name="EnemySpawner" type="Node2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(586, 0)
-curve = SubResource("Curve2D_e3xe6")
+position = Vector2(586, 150)
 script = ExtResource("3_e08lw")
+metadata/_custom_type_script = "uid://bqjqgqx4ml0c3"
 
 [node name="SpawnTimer" type="Timer" parent="."]
 unique_name_in_owner = true
