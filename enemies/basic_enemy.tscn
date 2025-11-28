@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://chslile3hjjx2"]
+
+[ext_resource type="Script" uid="uid://b5ft0uqdlk7ta" path="res://enemies/basic_enemy.gd" id="1_ubayq"]
+[ext_resource type="Script" uid="uid://dpgeed6dcrnix" path="res://enemies/basic_collision_polygon.gd" id="2_6ofcp"]
+
+[node name="BasicEnemy" type="Area2D"]
+script = ExtResource("1_ubayq")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+unique_name_in_owner = true
+rect = Rect2(-12, -12, 24, 24)
+
+[node name="BasicCollisionPolygon" type="CollisionPolygon2D" parent="."]
+unique_name_in_owner = true
+polygon = PackedVector2Array(11.982201, -0.6533612, 10.703568, 5.4252768, 6.556925, 10.050211, 0.65335923, 11.982201, -5.4252734, 10.703569, -10.050209, 6.556928, -11.982201, 0.653363, -10.703571, -5.42527, -6.556922, -10.050213, -0.6533553, -11.982201, 5.4252768, -10.703568, 10.050211, -6.556925)
+script = ExtResource("2_6ofcp")
+num_points = 12
+angle_offset = 6.228711817959562
