@@ -5,7 +5,7 @@ extends Node2D
 
 func _ready() -> void:
 	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
-	
+	await get_tree().create_timer(1.0, false, true).timeout
 	start_game()
 
 func _on_spawn_timer_timeout() -> void:

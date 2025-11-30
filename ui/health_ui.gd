@@ -12,28 +12,27 @@ const TWEEN_DELAY : float = 0.75
 const TWEEN_DURATION : float = 0.5
 
 
-var max_health : int = 6
-var health : int = 6:
-	set = set_health,
-	get = get_health
+var player_stats : PlayerStats
+var last_health : int = 0
 var tween : Tween
 
+var health : int:
+	get: return player_stats.get_health()
+var max_health : int:
+	get: return player_stats.get_max_health()
+	
 
 @onready var health_bar_over: ColorRect = %HealthBarOver
 @onready var health_bar_under: ColorRect = %HealthBarUnder
 
 
 func _ready() -> void:
-	SignalBus.enemy_reached_left.connect(take_damage.bind(1))
+	SignalBus.player_stats_initialized.connect(_on_player_stats_initialized)
 	health_restored.connect(_on_health_restored)
 	damage_taken.connect(_on_damage_taken)
 	await get_tree().process_frame
 	health_bar_over.set_custom_minimum_size(size)
 	health_bar_under.set_custom_minimum_size(size)
-
-
-func take_damage(value : int) -> void:
-	health -= value
 
 
 func new_tween() -> Tween:
@@ -67,17 +66,16 @@ func _on_health_restored() -> void:
 			target_size_x, TWEEN_DURATION).set_delay(TWEEN_DELAY)
 
 
-func set_health(value : int) -> void:
-	var original_value : int = health
-	var target_value : int = mini(maxi(0, value), max_health)
-	if original_value == target_value:
+func _on_player_stats_initialized(p_player_stats : PlayerStats) -> void:
+	player_stats = p_player_stats
+	if not player_stats:
 		return
-	health = target_value
-	if original_value < health:
+	player_stats.health_changed.connect(_on_health_changed)
+
+
+func _on_health_changed(value : int) -> void:
+	if value > last_health:
 		health_restored.emit()
-	else:
+	elif value < last_health:
 		damage_taken.emit()
-
-
-func get_health() -> int:
-	return health
+	last_health = value

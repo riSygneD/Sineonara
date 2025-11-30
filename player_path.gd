@@ -12,15 +12,14 @@ const PERIOD_FACTOR_STEPS : Array[float] = [16.0, 8.0, 4.0]
 
 var _shift_speed_factor : float = BASE_SHIFT_SPEED_FACTOR
 var _amplitude_step_idx : int = 0:
-	set = set_amplitude_step_idx
+	set = set_amplitude_step_idx,
+	get = get_amplitude_step_idx
 var _period_factor_step_idx : int = 0:
-	set = set_period_factor_step_idx
+	set = set_period_factor_step_idx,
+	get = get_period_factor_step_idx
 var _shift_speed_tween : Tween
 var _amplitude_tween : Tween
 var _period_tween : Tween
-
-
-@onready var path_visualizer: PathVisualizer = %PathVisualizer
 
 
 func _ready() -> void:
@@ -118,3 +117,9 @@ func collapse() -> void:
 			curve.amplitude * 2.0, 0.5)
 	collapse_tween.tween_property(curve, "amplitude",
 			0.0, 1.5).set_delay(0.5)
+
+func get_amplitude_step_idx() -> int:
+	return _amplitude_step_idx
+	
+func get_period_factor_step_idx() -> int:
+	return _period_factor_step_idx

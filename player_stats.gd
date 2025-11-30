@@ -6,6 +6,7 @@ signal health_changed(value : int)
 signal max_health_changed(value : int)
 signal energy_changed(value : float)
 signal max_energy_changed(value : float)
+signal no_health
 
 
 @export var health : int = 6:
@@ -22,28 +23,35 @@ signal max_energy_changed(value : float)
 	get = get_max_energy
 
 func set_health(value : int) -> void:
-	if health == value:
+	var target_value : int = mini(maxi(0, value), max_health)
+	if health == target_value:
 		return
-	health = value
-	health_changed.emit(value)
+	health = target_value
+	health_changed.emit(target_value)
+	if health <= 0:
+		no_health.emit()
 
 func set_max_health(value : int) -> void:
 	if max_health == value:
 		return
 	max_health = value
 	max_health_changed.emit(value)
+	health = mini(health, max_health)
 
 func set_energy(value : float) -> void:
-	if energy == value:
+	var target_value : float = minf(maxf(0, value), max_energy)
+	if energy == target_value:
 		return
-	energy = value
-	energy_changed.emit(value)
+	energy = target_value
+	energy_changed.emit(target_value)
 
 func set_max_energy(value : float) -> void:
 	if max_energy == value:
 		return
 	max_energy = value
 	max_energy_changed.emit(value)
+	max_energy = minf(energy, max_energy)
+
 
 func get_health() -> int:
 	return health

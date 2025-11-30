@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cku8kjtawyxjg"]
+[gd_scene load_steps=5 format=3 uid="uid://cku8kjtawyxjg"]
 
 [ext_resource type="Script" uid="uid://bkhe2py62ue7u" path="res://game_world.gd" id="1_e08lw"]
 [ext_resource type="PackedScene" uid="uid://4ad6ir3elqsv" path="res://player_path.tscn" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://bqjqgqx4ml0c3" path="res://enemy_spawner.gd" id="3_e08lw"]
 [ext_resource type="Theme" uid="uid://18prg1h5nv17" path="res://main_menu_theme.tres" id="3_ea1x0"]
-[ext_resource type="Script" uid="uid://ckgjqv77v7tsm" path="res://player_path_controller.gd" id="4_e3xe6"]
 
 [node name="GameWorld" type="Node2D"]
 script = ExtResource("1_e08lw")
@@ -32,11 +31,6 @@ process_callback = 0
 [node name="PlayerPath" parent="." instance=ExtResource("2_e2o6t")]
 unique_name_in_owner = true
 position = Vector2(0, 150)
-
-[node name="PlayerPathController" type="Node" parent="PlayerPath" node_paths=PackedStringArray("player_path")]
-script = ExtResource("4_e3xe6")
-player_path = NodePath("..")
-metadata/_custom_type_script = "uid://ckgjqv77v7tsm"
 
 [node name="EnemySpawner" type="Node2D" parent="."]
 unique_name_in_owner = true
