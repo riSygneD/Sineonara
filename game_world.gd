@@ -5,7 +5,14 @@ extends Node2D
 
 func _ready() -> void:
 	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
-	spawn_timer.start()
+	
+	start_game()
 
 func _on_spawn_timer_timeout() -> void:
 	enemy_spawner.spawn_enemy()
+
+func start_game() -> void:
+	var player_stats := PlayerStats.new()
+	SignalBus.player_stats_initialized.emit(player_stats)
+	
+	spawn_timer.start()

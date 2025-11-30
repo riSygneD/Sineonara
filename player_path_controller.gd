@@ -5,9 +5,16 @@ extends Node
 @export var player_path : PlayerPath
 
 
+var player_stats : PlayerStats
+
+
 func _enter_tree() -> void:
 	if get_parent() is PlayerPath:
 		player_path = get_parent()
+
+
+func _ready() -> void:
+	SignalBus.player_stats_initialized.connect(_on_player_stats_initialized)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -28,3 +35,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	else:
 		return
 	get_viewport().set_input_as_handled()
+
+func _on_player_stats_initialized(p_player_stats : PlayerStats) -> void:
+	player_stats = p_player_stats
+	print(player_stats)
