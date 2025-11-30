@@ -8,6 +8,13 @@
 [node name="GameWorld" type="Node2D"]
 script = ExtResource("1_e08lw")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 180)
+
+[node name="SpawnTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+process_callback = 0
+
 [node name="Reference" type="PanelContainer" parent="."]
 visible = false
 offset_left = -6.0
@@ -30,7 +37,3 @@ unique_name_in_owner = true
 position = Vector2(586, 150)
 script = ExtResource("3_e08lw")
 metadata/_custom_type_script = "uid://bqjqgqx4ml0c3"
-
-[node name="SpawnTimer" type="Timer" parent="."]
-unique_name_in_owner = true
-process_callback = 0
