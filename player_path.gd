@@ -1,3 +1,4 @@
+class_name PlayerPath
 extends Path2D
 
 
@@ -23,36 +24,8 @@ var _period_tween : Tween
 
 
 func _ready() -> void:
-	tween_amplitude_to(AMPLITUDE_STEPS.front())
-	tween_period_factor_to(PERIOD_FACTOR_STEPS.front())
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if not event.is_pressed() or event.is_echo():
-		return
-	if event.is_action("attack"):
-		attack()
-	
-	elif event.is_action("decrease_amplitude"):
-		set_amplitude_step_idx(maxi(0, _amplitude_step_idx - 1))
-	
-	elif event.is_action("increase_amplitude"):
-		set_amplitude_step_idx(mini(AMPLITUDE_STEPS.size() - 1,
-				_amplitude_step_idx + 1))
-	
-	elif event.is_action("decrease_frequency"):
-		set_period_factor_step_idx(maxi(0, _period_factor_step_idx - 1))
-	
-	elif event.is_action("increase_frequency"):
-		set_period_factor_step_idx(mini(PERIOD_FACTOR_STEPS.size() - 1,
-				_period_factor_step_idx + 1))
-	
-	elif event.is_action("debug"):
-		collapse()
-	
-	else:
-		return
-	get_viewport().set_input_as_handled()
+	_tween_amplitude_to(AMPLITUDE_STEPS.front())
+	_tween_period_factor_to(PERIOD_FACTOR_STEPS.front())
 
 
 func _physics_process(delta : float) -> void:
@@ -81,35 +54,38 @@ func attack() -> void:
 	_shift_speed_factor = IMPACT_SHIFT_SPEED_FACTOR
 	_shift_speed_tween = create_tween().set_trans(Tween.TRANS_CUBIC)\
 			.set_ease(Tween.EASE_OUT)
-	_shift_speed_tween.tween_property(self, "shift_speed_factor",
+	_shift_speed_tween.tween_property(self, "_shift_speed_factor",
 			BASE_SHIFT_SPEED_FACTOR, IMPACT_DURATION)
 
-func increase_frequency() -> void:
-	pass
-
-func decrease_frequency() -> void:
-	pass
-
-func increase_amplitude() -> void:
-	pass
 
 func decrease_amplitude() -> void:
-	pass
+	set_amplitude_step_idx(maxi(0, _amplitude_step_idx - 1))
+
+func increase_amplitude() -> void:
+	set_amplitude_step_idx(mini(AMPLITUDE_STEPS.size() - 1,
+			_amplitude_step_idx + 1))
+
+func decrease_frequency() -> void:
+	set_period_factor_step_idx(maxi(0, _period_factor_step_idx - 1))
+
+func increase_frequency() -> void:
+	set_period_factor_step_idx(mini(PERIOD_FACTOR_STEPS.size() - 1,
+			_period_factor_step_idx + 1))
 
 
 func set_amplitude_step_idx(value : int) -> void:
 	_amplitude_step_idx = value
 	if is_inside_tree():
-		tween_amplitude_to(AMPLITUDE_STEPS.get(_amplitude_step_idx))
+		_tween_amplitude_to(AMPLITUDE_STEPS.get(_amplitude_step_idx))
 
 
 func set_period_factor_step_idx(value : int) -> void:
 	_period_factor_step_idx = value
 	if is_inside_tree():
-		tween_period_factor_to(PERIOD_FACTOR_STEPS.get(_period_factor_step_idx))
+		_tween_period_factor_to(PERIOD_FACTOR_STEPS.get(_period_factor_step_idx))
 
 
-func tween_amplitude_to(value : float) -> void:
+func _tween_amplitude_to(value : float) -> void:
 	if _amplitude_tween:
 		_amplitude_tween.pause()
 		_amplitude_tween.custom_step(0.2)
@@ -120,7 +96,7 @@ func tween_amplitude_to(value : float) -> void:
 	_amplitude_tween.tween_property(curve, "amplitude", value, 0.2)
 
 
-func tween_period_factor_to(value : float) -> void:
+func _tween_period_factor_to(value : float) -> void:
 	if _period_tween:
 		_period_tween.pause()
 		_period_tween.custom_step(0.2)
