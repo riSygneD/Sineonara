@@ -33,11 +33,12 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="HealthUI" parent="MarginContainer/VBoxContainer/TopBar" instance=ExtResource("2_3rlp6")]
-layout_mode = 2
-
 [node name="EnergyUI" parent="MarginContainer/VBoxContainer/TopBar" instance=ExtResource("3_3rlp6")]
 layout_mode = 2
+
+[node name="HealthUI" parent="MarginContainer/VBoxContainer/TopBar" instance=ExtResource("2_3rlp6")]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="PlayArea" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

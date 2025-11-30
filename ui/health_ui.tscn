@@ -17,13 +17,13 @@ script = ExtResource("2_iy3an")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 8
 
 [node name="HealthBarOver" type="ColorRect" parent="."]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 8
 color = Color(1, 0, 0, 1)
 
 [node name="BorderOver" type="PanelContainer" parent="."]

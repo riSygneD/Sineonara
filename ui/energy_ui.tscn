@@ -17,7 +17,7 @@ script = ExtResource("2_jmq3l")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 0
 color = Color(1, 0.64705884, 0, 1)
 
 [node name="BorderOver" type="PanelContainer" parent="."]
