@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dw88n4b32l7vi"]
+[gd_scene load_steps=5 format=3 uid="uid://dw88n4b32l7vi"]
 
 [ext_resource type="Theme" uid="uid://18prg1h5nv17" path="res://main_menu_theme.tres" id="1_oaw30"]
 [ext_resource type="PackedScene" uid="uid://byy8jn02k43cq" path="res://health_ui.tscn" id="2_3rlp6"]
 [ext_resource type="PackedScene" uid="uid://cku8kjtawyxjg" path="res://game_world.tscn" id="2_mj8uy"]
+[ext_resource type="PackedScene" uid="uid://cd48d6qb7r8pm" path="res://energy_ui.tscn" id="3_3rlp6"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -33,6 +34,9 @@ layout_mode = 2
 theme_override_constants/separation = 6
 
 [node name="HealthUI" parent="MarginContainer/VBoxContainer/TopBar" instance=ExtResource("2_3rlp6")]
+layout_mode = 2
+
+[node name="EnergyUI" parent="MarginContainer/VBoxContainer/TopBar" instance=ExtResource("3_3rlp6")]
 layout_mode = 2
 
 [node name="PlayArea" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]

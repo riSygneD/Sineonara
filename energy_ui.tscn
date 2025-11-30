@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cd48d6qb7r8pm"]
+
+[ext_resource type="Theme" uid="uid://18prg1h5nv17" path="res://main_menu_theme.tres" id="1_y66hx"]
+[ext_resource type="Script" uid="uid://dwelk77yn6gqf" path="res://energy_ui.gd" id="2_jmq3l"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0ghdw"]
+
+[node name="EnergyUI" type="PanelContainer"]
+offset_right = 64.0
+offset_bottom = 16.0
+size_flags_horizontal = 3
+theme = ExtResource("1_y66hx")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0ghdw")
+script = ExtResource("2_jmq3l")
+
+[node name="EnergyBar" type="ColorRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+color = Color(1, 0.64705884, 0, 1)
+
+[node name="BorderOver" type="PanelContainer" parent="."]
+layout_mode = 2

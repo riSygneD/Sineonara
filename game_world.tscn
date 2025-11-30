@@ -9,24 +9,24 @@
 script = ExtResource("1_e08lw")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(320, 180)
+position = Vector2(266, 150)
+
+[node name="Reference" type="PanelContainer" parent="Camera2D"]
+visible = false
+offset_left = -272.0
+offset_top = -156.0
+offset_right = 272.0
+offset_bottom = 156.0
+theme = ExtResource("3_ea1x0")
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/Reference"]
+custom_minimum_size = Vector2(532, 300)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
 
 [node name="SpawnTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 process_callback = 0
-
-[node name="Reference" type="PanelContainer" parent="."]
-visible = false
-offset_left = -6.0
-offset_top = -6.0
-offset_right = 538.0
-offset_bottom = 306.0
-theme = ExtResource("3_ea1x0")
-
-[node name="ColorRect" type="ColorRect" parent="Reference"]
-custom_minimum_size = Vector2(532, 300)
-layout_mode = 2
-color = Color(1, 1, 1, 0)
 
 [node name="PlayerPath" parent="." instance=ExtResource("2_e2o6t")]
 unique_name_in_owner = true

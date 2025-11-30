@@ -14,7 +14,8 @@ const TWEEN_DURATION : float = 0.5
 
 var max_health : int = 6
 var health : int = 6:
-	set = set_health
+	set = set_health,
+	get = get_health
 var tween : Tween
 
 
@@ -76,3 +77,6 @@ func set_health(value : int) -> void:
 		health_restored.emit()
 	else:
 		damage_taken.emit()
+
+func get_health() -> int:
+	return health

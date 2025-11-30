@@ -9,14 +9,14 @@ const AMPLITUDE_STEPS : Array[float] = [40.0, 80.0, 120.0]
 const PERIOD_FACTOR_STEPS : Array[float] = [16.0, 8.0, 4.0]
 
 
-var shift_speed_factor : float = BASE_SHIFT_SPEED_FACTOR
-var amplitude_step_idx : int = 0:
+var _shift_speed_factor : float = BASE_SHIFT_SPEED_FACTOR
+var _amplitude_step_idx : int = 0:
 	set = set_amplitude_step_idx
-var period_factor_step_idx : int = 0:
+var _period_factor_step_idx : int = 0:
 	set = set_period_factor_step_idx
-var shift_speed_tween : Tween
-var amplitude_tween : Tween
-var period_tween : Tween
+var _shift_speed_tween : Tween
+var _amplitude_tween : Tween
+var _period_tween : Tween
 
 
 @onready var path_visualizer: PathVisualizer = %PathVisualizer
@@ -31,41 +31,21 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_pressed() or event.is_echo():
 		return
 	if event.is_action("attack"):
-		var attack_path : Path2D = Path2D.new()
-		var copied_curve : WaveCurve = curve.duplicate_deep(
-				Resource.DEEP_DUPLICATE_ALL) as WaveCurve
-		var attack_visualizer := PathEchoVisualizer.new()
-		var attack_hitbox := PathHitbox.new()
-		attack_path.set_curve(copied_curve)
-		add_child(attack_path)
-		attack_path.add_child(attack_visualizer)
-		attack_path.add_child(attack_hitbox)
-		attack_path.set_global_position(get_global_position())
-		attack_visualizer.hidden.connect(attack_path.queue_free)
-		
-		if shift_speed_tween:
-			shift_speed_tween.pause()
-			shift_speed_tween.custom_step(IMPACT_DURATION)
-			shift_speed_tween.kill()
-		shift_speed_factor = IMPACT_SHIFT_SPEED_FACTOR
-		shift_speed_tween = create_tween().set_trans(Tween.TRANS_CUBIC)\
-				.set_ease(Tween.EASE_OUT)
-		shift_speed_tween.tween_property(self, "shift_speed_factor",
-				BASE_SHIFT_SPEED_FACTOR, IMPACT_DURATION)
+		attack()
 	
 	elif event.is_action("decrease_amplitude"):
-		set_amplitude_step_idx(maxi(0, amplitude_step_idx - 1))
+		set_amplitude_step_idx(maxi(0, _amplitude_step_idx - 1))
 	
 	elif event.is_action("increase_amplitude"):
 		set_amplitude_step_idx(mini(AMPLITUDE_STEPS.size() - 1,
-				amplitude_step_idx + 1))
+				_amplitude_step_idx + 1))
 	
 	elif event.is_action("decrease_frequency"):
-		set_period_factor_step_idx(maxi(0, period_factor_step_idx - 1))
+		set_period_factor_step_idx(maxi(0, _period_factor_step_idx - 1))
 	
 	elif event.is_action("increase_frequency"):
 		set_period_factor_step_idx(mini(PERIOD_FACTOR_STEPS.size() - 1,
-				period_factor_step_idx + 1))
+				_period_factor_step_idx + 1))
 	
 	elif event.is_action("debug"):
 		collapse()
@@ -76,43 +56,79 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta : float) -> void:
-	var shift_by : float = curve.period * shift_speed_factor * delta
+	var shift_by : float = curve.period * _shift_speed_factor * delta
 	var projected_shift_x : float = curve.shift.x + shift_by
 	curve.shift.x = fmod(projected_shift_x, curve.period)
 
 
+func attack() -> void:
+	var attack_path : Path2D = Path2D.new()
+	var copied_curve : WaveCurve = curve.duplicate_deep(
+			Resource.DEEP_DUPLICATE_ALL) as WaveCurve
+	var attack_visualizer := PathEchoVisualizer.new()
+	var attack_hitbox := PathHitbox.new()
+	attack_path.set_curve(copied_curve)
+	add_child(attack_path)
+	attack_path.add_child(attack_visualizer)
+	attack_path.add_child(attack_hitbox)
+	attack_path.set_global_position(get_global_position())
+	attack_visualizer.hidden.connect(attack_path.queue_free)
+	
+	if _shift_speed_tween:
+		_shift_speed_tween.pause()
+		_shift_speed_tween.custom_step(IMPACT_DURATION)
+		_shift_speed_tween.kill()
+	_shift_speed_factor = IMPACT_SHIFT_SPEED_FACTOR
+	_shift_speed_tween = create_tween().set_trans(Tween.TRANS_CUBIC)\
+			.set_ease(Tween.EASE_OUT)
+	_shift_speed_tween.tween_property(self, "shift_speed_factor",
+			BASE_SHIFT_SPEED_FACTOR, IMPACT_DURATION)
+
+func increase_frequency() -> void:
+	pass
+
+func decrease_frequency() -> void:
+	pass
+
+func increase_amplitude() -> void:
+	pass
+
+func decrease_amplitude() -> void:
+	pass
+
+
 func set_amplitude_step_idx(value : int) -> void:
-	amplitude_step_idx = value
+	_amplitude_step_idx = value
 	if is_inside_tree():
-		tween_amplitude_to(AMPLITUDE_STEPS.get(amplitude_step_idx))
+		tween_amplitude_to(AMPLITUDE_STEPS.get(_amplitude_step_idx))
 
 
 func set_period_factor_step_idx(value : int) -> void:
-	period_factor_step_idx = value
+	_period_factor_step_idx = value
 	if is_inside_tree():
-		tween_period_factor_to(PERIOD_FACTOR_STEPS.get(period_factor_step_idx))
+		tween_period_factor_to(PERIOD_FACTOR_STEPS.get(_period_factor_step_idx))
 
 
 func tween_amplitude_to(value : float) -> void:
-	if amplitude_tween:
-		amplitude_tween.pause()
-		amplitude_tween.custom_step(0.2)
-		amplitude_tween.kill()
+	if _amplitude_tween:
+		_amplitude_tween.pause()
+		_amplitude_tween.custom_step(0.2)
+		_amplitude_tween.kill()
 	if is_equal_approx(curve.amplitude, value):
 		return
-	amplitude_tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
-	amplitude_tween.tween_property(curve, "amplitude", value, 0.2)
+	_amplitude_tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	_amplitude_tween.tween_property(curve, "amplitude", value, 0.2)
 
 
 func tween_period_factor_to(value : float) -> void:
-	if period_tween:
-		period_tween.pause()
-		period_tween.custom_step(0.2)
-		period_tween.kill()
+	if _period_tween:
+		_period_tween.pause()
+		_period_tween.custom_step(0.2)
+		_period_tween.kill()
 	if is_equal_approx(curve.period_factor, value):
 		return
-	period_tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
-	period_tween.tween_property(curve, "period_factor", value, 0.2)
+	_period_tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	_period_tween.tween_property(curve, "period_factor", value, 0.2)
 
 
 func collapse() -> void:
