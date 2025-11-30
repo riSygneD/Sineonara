@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cd48d6qb7r8pm"]
 
 [ext_resource type="Theme" uid="uid://18prg1h5nv17" path="res://main_menu_theme.tres" id="1_y66hx"]
-[ext_resource type="Script" uid="uid://dwelk77yn6gqf" path="res://energy_ui.gd" id="2_jmq3l"]
+[ext_resource type="Script" uid="uid://dwelk77yn6gqf" path="res://ui/energy_ui.gd" id="2_jmq3l"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0ghdw"]
 

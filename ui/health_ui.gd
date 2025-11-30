@@ -78,5 +78,6 @@ func set_health(value : int) -> void:
 	else:
 		damage_taken.emit()
 
+
 func get_health() -> int:
 	return health
