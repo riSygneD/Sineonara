@@ -70,6 +70,7 @@ func _on_player_stats_initialized(p_player_stats : PlayerStats) -> void:
 	player_stats = p_player_stats
 	if not player_stats:
 		return
+	last_health = player_stats.health
 	player_stats.health_changed.connect(_on_health_changed)
 
 
