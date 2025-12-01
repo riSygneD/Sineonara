@@ -57,7 +57,18 @@ func _on_wave_finished() -> void:
 		wave_info.num_enemies += 10
 	else:
 		wave_info.num_enemies += 5
+		
+	var difficulty_mod : int = maxi(0, wave_info.num_enemies - 20) % 20
+	match difficulty_mod:
+		0:
+			enemy_spawner.set_difficulty(EnemySpawner.Difficulty.EASY)
+		1:
+			enemy_spawner.set_difficulty(EnemySpawner.Difficulty.MEDIUM)
+		_:
+			enemy_spawner.set_difficulty(EnemySpawner.Difficulty.HARD)
+	
 	wave_info.spawn_time = maxf(1.0, wave_info.spawn_time - 0.2)
+	
 	wave_updated.emit(wave_info)
 	wave_timer.start(5.0)
 
