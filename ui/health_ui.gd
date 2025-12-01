@@ -7,7 +7,7 @@ signal damage_taken
 
 const HEALTH_BAR_COLOR_BASE : Color = Color.RED
 const HEALTH_BAR_COLOR_HEAL : Color = Color.GREEN
-const HEALTH_BAR_COLOR_DAMAGED : Color = Color.YELLOW
+const HEALTH_BAR_COLOR_DAMAGED : Color = Color.WHITE
 const TWEEN_DELAY : float = 0.75
 const TWEEN_DURATION : float = 0.5
 

@@ -15,10 +15,10 @@ signal no_health
 @export var max_health : int = 6:
 	set = set_max_health,
 	get = get_max_health
-@export var energy : float = 120.0:
+@export var energy : float = 0.0:
 	set = set_energy,
 	get = get_energy
-@export var max_energy : float = 120.0:
+@export var max_energy : float = 6.0:
 	set = set_max_energy,
 	get = get_max_energy
 

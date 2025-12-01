@@ -1,11 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://daudfjxicymcy"]
+[gd_scene load_steps=7 format=3 uid="uid://daudfjxicymcy"]
 
 [ext_resource type="Theme" uid="uid://18prg1h5nv17" path="res://main_menu_theme.tres" id="1_06t4h"]
 [ext_resource type="PackedScene" uid="uid://cpsh1ojnwgsks" path="res://ui/main_menu_background.tscn" id="2_7vrkn"]
 [ext_resource type="Script" uid="uid://cnuluir36jtti" path="res://main_menu.gd" id="2_fu7sn"]
+[ext_resource type="Script" uid="uid://s0isn0k1c4ea" path="res://static_noise_player.gd" id="4_jix8l"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_06t4h"]
 font_size = 48
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_jix8l"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -16,16 +19,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_06t4h")
 script = ExtResource("2_fu7sn")
-
-[node name="StaticBackground" type="ColorRect" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0.05882353, 1)
 
 [node name="AnimatedBackgroundContainer" type="SubViewportContainer" parent="."]
 layout_mode = 0
@@ -72,3 +65,11 @@ offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "play"
+
+[node name="StaticNoisePlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamGenerator_jix8l")
+volume_db = -7.5
+pitch_scale = 0.15
+script = ExtResource("4_jix8l")
+metadata/_custom_type_script = "uid://s0isn0k1c4ea"

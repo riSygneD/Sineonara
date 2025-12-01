@@ -2,6 +2,10 @@ class_name PlayerPath
 extends Path2D
 
 
+signal attacked(amplitude_step : int, frequency_step : int)
+signal energy_cost_changed
+
+
 const IMPACT_SHIFT_SPEED_FACTOR : float = 6.75
 const IMPACT_DURATION : float = 0.5
 const BASE_SHIFT_SPEED_FACTOR : float = 0.5
@@ -9,6 +13,9 @@ const BASE_SHIFT_SPEED_FACTOR : float = 0.5
 const AMPLITUDE_STEPS : Array[float] = [40.0, 80.0, 120.0]
 const PERIOD_FACTOR_STEPS : Array[float] = [16.0, 8.0, 4.0]
 
+const BASE_ENERGY_COST : float = 2.0
+const AMPLITUDE_ENERGY_STEP : float = 1.0
+const FREQUENCY_ENERGY_STEP : float = 1.0
 
 var _shift_speed_factor : float = BASE_SHIFT_SPEED_FACTOR
 var _amplitude_step_idx : int = 0:
@@ -46,6 +53,8 @@ func attack() -> void:
 	attack_path.set_global_position(get_global_position())
 	attack_visualizer.hidden.connect(attack_path.queue_free)
 	
+	attacked.emit(_amplitude_step_idx, _period_factor_step_idx)
+	
 	if _shift_speed_tween:
 		_shift_speed_tween.pause()
 		_shift_speed_tween.custom_step(IMPACT_DURATION)
@@ -73,15 +82,21 @@ func increase_frequency() -> void:
 
 
 func set_amplitude_step_idx(value : int) -> void:
+	if _amplitude_step_idx == value:
+		return
 	_amplitude_step_idx = value
 	if is_inside_tree():
 		_tween_amplitude_to(AMPLITUDE_STEPS.get(_amplitude_step_idx))
+	energy_cost_changed.emit()
 
 
 func set_period_factor_step_idx(value : int) -> void:
+	if _period_factor_step_idx == value:
+		return
 	_period_factor_step_idx = value
 	if is_inside_tree():
 		_tween_period_factor_to(PERIOD_FACTOR_STEPS.get(_period_factor_step_idx))
+	energy_cost_changed.emit()
 
 
 func _tween_amplitude_to(value : float) -> void:
@@ -123,3 +138,9 @@ func get_amplitude_step_idx() -> int:
 	
 func get_period_factor_step_idx() -> int:
 	return _period_factor_step_idx
+
+func get_energy_cost() -> float:
+	var energy_cost : float = BASE_ENERGY_COST
+	energy_cost += AMPLITUDE_ENERGY_STEP * _amplitude_step_idx
+	energy_cost += FREQUENCY_ENERGY_STEP * _period_factor_step_idx
+	return energy_cost

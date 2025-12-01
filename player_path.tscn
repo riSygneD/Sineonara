@@ -1,12 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://4ad6ir3elqsv"]
+[gd_scene load_steps=11 format=3 uid="uid://4ad6ir3elqsv"]
 
 [ext_resource type="Script" uid="uid://c4mbyite8vh43" path="res://wave/scripts/wave_curve.gd" id="1_qyuvv"]
 [ext_resource type="Script" uid="uid://bs2p0a2pd5drg" path="res://player_path.gd" id="2_1vfu6"]
 [ext_resource type="Texture2D" uid="uid://dnlrmdls117j8" path="res://wave/resources/quarter_dashed_line.tres" id="2_w6iud"]
-[ext_resource type="Script" uid="uid://bvhrcxkuu7kvn" path="res://wave/scripts/path_visualizer.gd" id="4_w6iud"]
+[ext_resource type="Script" uid="uid://blvhdfh2kyps3" path="res://player_path_visualizer.gd" id="4_3v1q2"]
 [ext_resource type="Script" uid="uid://cnb2d2hatqt3v" path="res://player_damage_handler.gd" id="5_vl757"]
 [ext_resource type="Script" uid="uid://bnbfy0k03nw4h" path="res://player_energy_handler.gd" id="6_3v1q2"]
 [ext_resource type="Script" uid="uid://ckgjqv77v7tsm" path="res://player_path_controller.gd" id="7_yf3j2"]
+[ext_resource type="Script" uid="uid://box5cmfyvl3ag" path="res://player_audio_handler.gd" id="8_3v1q2"]
 
 [sub_resource type="Curve2D" id="Curve2D_fc0e3"]
 _data = {
@@ -41,7 +42,7 @@ texture_mode = 1
 joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
-script = ExtResource("4_w6iud")
+script = ExtResource("4_3v1q2")
 path = NodePath("..")
 metadata/_custom_type_script = "uid://bvhrcxkuu7kvn"
 
@@ -53,3 +54,8 @@ script = ExtResource("6_3v1q2")
 
 [node name="PlayerPathController" type="Node" parent="."]
 script = ExtResource("7_yf3j2")
+
+[node name="PlayerAudioHandler" type="Node" parent="." node_paths=PackedStringArray("player_path", "player_damage_handler")]
+script = ExtResource("8_3v1q2")
+player_path = NodePath("..")
+player_damage_handler = NodePath("../PlayerDamageHandler")

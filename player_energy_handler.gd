@@ -1,8 +1,9 @@
 class_name PlayerEnergyHandler
 extends Node
 
-const ENERGY_RECHARGE_RATE := 6.0 # per second
+const BASE_ENERGY_RECHARGE_RATE := 1.0 # per second
 
+var energy_recharge_rate : float = BASE_ENERGY_RECHARGE_RATE
 var player_stats : PlayerStats
 
 func _ready() -> void:
@@ -14,5 +15,5 @@ func _on_player_stats_initialized(p_player_stats : PlayerStats) -> void:
 func _physics_process(delta: float) -> void:
 	if not player_stats:
 		return
-	var energy_delta : float = ENERGY_RECHARGE_RATE * delta
+	var energy_delta : float = energy_recharge_rate * delta
 	player_stats.set_energy(player_stats.get_energy() + energy_delta)

@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dub35u32gkum2" path="res://main.gd" id="1_ig7tw"]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" groups=["main"]]
+process_mode = 3
 script = ExtResource("1_ig7tw")
 
-[node name="FadeOverlay" type="ColorRect" parent="."]
+[node name="FadeOverlay" type="ColorRect" parent="." groups=["main"]]
 unique_name_in_owner = true
 z_index = 2048
 anchors_preset = 15

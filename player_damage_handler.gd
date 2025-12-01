@@ -2,6 +2,9 @@ class_name PlayerDamageHandler
 extends Node
 
 
+signal damage_taken
+
+
 var player_stats : PlayerStats
 
 
@@ -19,3 +22,4 @@ func take_damage() -> void:
 		print_debug("ERROR: Player stats was not initialized for me!")
 		return
 	player_stats.health -= 1
+	damage_taken.emit()

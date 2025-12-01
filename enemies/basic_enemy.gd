@@ -31,4 +31,3 @@ func get_polygon() -> PackedVector2Array:
 
 func _on_screen_exited() -> void:
 	SignalBus.enemy_reached_left.emit()
-	print("hi owo")
