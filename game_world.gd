@@ -53,8 +53,11 @@ func _on_spawn_timer_timeout() -> void:
 
 
 func _on_wave_finished() -> void:
-	wave_info.num_enemies += 5
-	wave_info.spawn_time = maxf(1.0, wave_info.spawn_time - 0.1)
+	if is_equal_approx(wave_info.spawn_time, 1.0):
+		wave_info.num_enemies += 10
+	else:
+		wave_info.num_enemies += 5
+	wave_info.spawn_time = maxf(1.0, wave_info.spawn_time - 0.2)
 	wave_updated.emit(wave_info)
 	wave_timer.start(5.0)
 
