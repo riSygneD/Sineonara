@@ -33,8 +33,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		player_path.decrease_frequency()
 	elif event.is_action("increase_frequency"):
 		player_path.increase_frequency()
-	elif event.is_action("debug"):
-		player_path.collapse()
 	else:
 		return
 	get_viewport().set_input_as_handled()
