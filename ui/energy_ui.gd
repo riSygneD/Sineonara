@@ -20,9 +20,10 @@ func _ready() -> void:
 
 func _on_player_stats_initialized(p_player_stats : PlayerStats) -> void:
 	player_stats = p_player_stats
-	if player_stats:
-		player_stats.energy_changed.connect(_on_energy_changed)
-		_on_energy_changed(player_stats.get_energy())
+	if not player_stats:
+		return
+	player_stats.energy_changed.connect(_on_energy_changed)
+	_on_energy_changed(player_stats.get_energy())
 
 
 func _on_energy_changed(value : float) -> void:

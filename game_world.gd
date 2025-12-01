@@ -16,16 +16,20 @@ var wave_enemies_remaining : int = 0:
 	set = set_wave_enemies_remaining
 var player_stats : PlayerStats
 
-
+@onready var start_timer: Timer = %StartTimer
 @onready var spawn_timer: Timer = %SpawnTimer
+@onready var wave_timer: Timer = %WaveTimer
 @onready var enemy_spawner: EnemySpawner = %EnemySpawner
 
 
 func _ready() -> void:
 	wave_finished.connect(_on_wave_finished)
 	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
-	await get_tree().create_timer(1.0, false, true).timeout
-	start_game()
+	start_timer.timeout.connect(func():
+		start_game()
+		start_timer.queue_free()
+	)
+	wave_timer.timeout.connect(start_next_wave)
 
 
 func get_wave_info() -> WaveInfo:
@@ -52,11 +56,11 @@ func _on_wave_finished() -> void:
 	wave_info.num_enemies += 5
 	wave_info.spawn_time = maxf(1.0, wave_info.spawn_time - 0.1)
 	wave_updated.emit(wave_info)
-	await get_tree().create_timer(5.0, false, true).timeout
-	start_next_wave()
+	wave_timer.start(5.0)
 
 
 func start_game() -> void:
+	print("game should start...")
 	var p_player_stats := PlayerStats.new()
 	SignalBus.player_stats_initialized.emit(p_player_stats)
 	player_stats = p_player_stats

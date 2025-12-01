@@ -26,10 +26,9 @@ func _ready() -> void:
 
 func _on_child_entered_tree(child : Node) -> void:
 	if child is MainMenu:
-		child.game_start_requested.connect(_on_game_start_requested.bind(child),
-				CONNECT_ONE_SHOT)
+		child.game_start_requested.connect(_on_game_start_requested.bind(child))
 	elif child is GameOverScreen:
-		child.main_menu_requested.connect(_on_main_menu_requested, CONNECT_ONE_SHOT)
+		child.main_menu_requested.connect(_on_main_menu_requested)
 
 
 func _on_game_start_requested(main_menu : MainMenu = null) -> void:
@@ -55,7 +54,6 @@ func _on_game_start_requested(main_menu : MainMenu = null) -> void:
 
 
 func _on_main_menu_requested() -> void:
-	print("running")
 	ResourceLoader.load_threaded_request(MAIN_MENU_UID)
 	
 	await fade_out()
@@ -65,6 +63,7 @@ func _on_main_menu_requested() -> void:
 			continue
 		child.queue_free()
 	Engine.set_time_scale(1.0)
+	get_tree().set_pause(false)
 	
 	var status : ResourceLoader.ThreadLoadStatus = ResourceLoader.load_threaded_get_status(MAIN_MENU_UID)
 	while status != ResourceLoader.ThreadLoadStatus.THREAD_LOAD_LOADED:
